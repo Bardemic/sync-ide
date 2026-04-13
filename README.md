@@ -2,16 +2,21 @@
 
 One CLI command to open any interface for coding from your active path.
 
-Supports:
+Agent Orchestrators:
 - T3 Code
-- Zed
-- Github Desktop
 - Codex
-- Cursor
 - Cursor-Glass
+- OpenCode GUI
+- Superset
+
+IDEs:
+- Cursor
 - Orchids
 - Virtual Studio Code
-- OpenCode GUI
+- Zed
+
+Else:
+- Github Desktop
 
 ## Install
 

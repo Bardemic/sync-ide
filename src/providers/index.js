@@ -6,6 +6,7 @@ import { cursorProvider, cursorGlassProvider } from "./cursor.js";
 import { orchidsProvider } from "./orchids.js";
 import { vscodeProvider } from "./vscode.js";
 import { opencodeProvider } from "./opencode.js";
+import { supersetProvider } from "./superset.js";
 
 export const providers = [
   t3Provider,
@@ -17,6 +18,7 @@ export const providers = [
   orchidsProvider,
   vscodeProvider,
   opencodeProvider,
+  supersetProvider,
 ];
 
 export function resolveProvider(name) {
