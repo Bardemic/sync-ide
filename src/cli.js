@@ -2,13 +2,13 @@
 import path from "node:path";
 import { providers, resolveProvider } from "./providers/index.js";
 
-const HELP = `coding — open the current repo in your coding agent GUI
+const HELP = `ide — open the current repo in any coding IDE or agent GUI
 
 Usage:
-  coding <provider> [path]    Open path (default: cwd) in the provider's GUI
-  coding list                 List supported providers
-  coding --help               Show this help
-  coding --version            Print the CLI version
+  ide <provider> [path]    Open path (default: cwd) in the provider's GUI
+  ide list                 List supported providers
+  ide --help               Show this help
+  ide --version            Print the CLI version
 
 Providers:
 ${providers.map((p) => `  ${p.name.padEnd(10)} ${p.description}`).join("\n")}
