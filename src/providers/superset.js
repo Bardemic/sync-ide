@@ -25,13 +25,7 @@ export const supersetProvider = {
       );
     }
 
-    const { projectId, inserted } = upsertProject(workspaceRoot);
-    console.log(
-      inserted
-        ? `Added ${workspaceRoot} to Superset (project ${projectId}).`
-        : `${workspaceRoot} already exists in Superset (project ${projectId}).`,
-    );
-
+    const { projectId } = upsertProject(workspaceRoot);
     const url = `superset://project/${projectId}/`;
     const result = spawnSync("open", [url], { stdio: "inherit" });
     if (result.status !== 0) {

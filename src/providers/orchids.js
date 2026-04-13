@@ -24,13 +24,9 @@ export const orchidsProvider = {
       throw new Error(`Orchids provider only supports macOS right now (got ${process.platform}).`);
     }
 
-    const { inserted, projectId } = upsertRecentProject(workspaceRoot);
-    console.log(
-      inserted
-        ? `Added ${workspaceRoot} to Orchids recent projects (${projectId}). Open Orchids and click it in the recent list.`
-        : `${workspaceRoot} already in Orchids recent projects (${projectId}); bumped to top.`,
-    );
+    upsertRecentProject(workspaceRoot);
     spawn("open", ["-a", APP_NAME_MAC], { detached: true, stdio: "ignore" }).unref();
+    console.log(`Opened ${workspaceRoot} in Orchids.`);
   },
 };
 

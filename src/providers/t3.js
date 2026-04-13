@@ -24,24 +24,18 @@ export const t3Provider = {
 
     if (runtime && cookie) {
       try {
-        const result = await openViaHttp(runtime, cookie, workspaceRoot);
-        console.log(
-          `T3 Code: ${result.projectCreated ? "created" : "reused"} project ${result.projectId}, new thread ${result.threadId}`,
-        );
+        await openViaHttp(runtime, cookie, workspaceRoot);
         launchDesktopApp();
+        console.log(`Opened ${workspaceRoot} in T3 Code.`);
         return;
       } catch (err) {
         console.warn(`T3 Code HTTP API failed (${err.message}). Falling back to direct DB insert.`);
       }
     }
 
-    const fallback = upsertProjectViaSqlite(workspaceRoot);
-    console.log(
-      fallback.inserted
-        ? `Added ${workspaceRoot} to T3 Code (project ${fallback.projectId}). Launch or reload T3 Code to see it.`
-        : `${workspaceRoot} already exists in T3 Code (project ${fallback.projectId}).`,
-    );
+    upsertProjectViaSqlite(workspaceRoot);
     launchDesktopApp();
+    console.log(`Opened ${workspaceRoot} in T3 Code.`);
   },
 };
 
@@ -220,6 +214,6 @@ function launchDesktopApp() {
     return;
   }
   console.log(
-    `(Auto-launch not implemented for ${process.platform}. Start T3 Code manually — the project is already registered.)`,
+    `(Auto-launch not implemented for ${process.platform}. Start T3 Code manually.)`,
   );
 }
