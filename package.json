@@ -1,6 +1,6 @@
 {
   "name": "sync-ide",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Open the current repo in any coding IDE or agent GUI",
   "keywords": [
     "cli",
