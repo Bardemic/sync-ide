@@ -1,4 +1,4 @@
-# ide-sync
+# sync-ide
 
 One CLI command to open any interface for coding from your active path.
 

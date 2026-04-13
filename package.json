@@ -1,5 +1,5 @@
 {
-  "name": "ide-sync",
+  "name": "sync-ide",
   "version": "0.0.1",
   "description": "Open the current repo in any coding IDE or agent GUI",
   "keywords": [
@@ -44,6 +44,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Bardemic/ide-sync.git"
+    "url": "git+https://github.com/Bardemic/sync-ide.git"
   }
 }
