@@ -1,7 +1,8 @@
 import { t3Provider } from "./t3.js";
 import { ghdProvider } from "./ghd.js";
+import { codexProvider } from "./codex.js";
 
-export const providers = [t3Provider, ghdProvider];
+export const providers = [t3Provider, ghdProvider, codexProvider];
 
 export function resolveProvider(name) {
   const key = name.toLowerCase();
