@@ -10,5 +10,6 @@ Supports:
 - Cursor
 - Cursor-Glass
 - Orchids
+- Virtual Studio Code
 
 ![CLI](./CLI.png)
