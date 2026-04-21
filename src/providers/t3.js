@@ -20,11 +20,11 @@ export const t3Provider = {
     }
 
     const runtime = readServerRuntime();
-    const cookie = readSessionCookie();
+    const cookieInfo = readSessionCookie(runtime?.port);
 
-    if (runtime && cookie) {
+    if (runtime && cookieInfo) {
       try {
-        await openViaHttp(runtime, cookie, workspaceRoot);
+        await openViaHttp(runtime, cookieInfo, workspaceRoot);
         launchDesktopApp();
         console.log(`Opened ${workspaceRoot} in T3 Code.`);
         return;
@@ -52,20 +52,27 @@ function readServerRuntime() {
   }
 }
 
-function readSessionCookie() {
+function readSessionCookie(port) {
   const candidates = [
     path.join(os.homedir(), "Library/Application Support/t3code/Cookies"),
     path.join(os.homedir(), ".config/t3code/Cookies"),
   ];
+  // In desktop mode the server uses a port-suffixed cookie name (e.g. t3_session_3773).
+  // Try the port-specific name first, then fall back to the generic name.
+  const cookieNames = port
+    ? [`t3_session_${port}`, "t3_session"]
+    : ["t3_session"];
   for (const dbPath of candidates) {
     if (!existsSync(dbPath)) continue;
     try {
       const db = new Database(dbPath, { readonly: true, fileMustExist: true });
       try {
-        const row = db
-          .prepare("SELECT value FROM cookies WHERE name = 't3_session' LIMIT 1")
-          .get();
-        if (row?.value) return row.value;
+        for (const name of cookieNames) {
+          const row = db
+            .prepare("SELECT value FROM cookies WHERE name = ? LIMIT 1")
+            .get(name);
+          if (row?.value) return { cookieName: name, cookieValue: row.value };
+        }
       } finally {
         db.close();
       }
@@ -76,11 +83,11 @@ function readSessionCookie() {
   return null;
 }
 
-async function openViaHttp(runtime, cookie, workspaceRoot) {
+async function openViaHttp(runtime, cookieInfo, workspaceRoot) {
   const origin = runtime.origin || `http://${runtime.host}:${runtime.port}`;
   const headers = {
     "Content-Type": "application/json",
-    Cookie: `t3_session=${cookie}`,
+    Cookie: `${cookieInfo.cookieName}=${cookieInfo.cookieValue}`,
     Accept: "application/json",
   };
 
